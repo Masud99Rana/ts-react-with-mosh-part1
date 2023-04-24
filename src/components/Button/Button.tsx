@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import styles from './Button.module.css';
 
 interface Props {
   children: string;
-  maxChars?: number;
+  color?: "primary" | "secondary" | "danger";
+  onClick: () => void;
 }
 
-const ExpandableText = ({ children, maxChars = 100 }: Props) => {
-  const [isExpanded, setExpanded] = useState(false);
-  
-  if (children.length <= maxChars) return <p>{children}</p>;
-
-  const text = isExpanded ? children : children.substring(0, maxChars);
-
-  return <p>{text}...<button onClick={() => setExpanded(!isExpanded)}>{isExpanded ? 'Less' : 'More'}</button></p>;
+const Button = ({ children, onClick, color = "primary" }: Props) => {
+  return (
+    <button className={[styles.btn, styles['btn-' + color]].join(' ')} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
-export default ExpandableText;
+export default Button;
